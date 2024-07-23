@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Детальный просмотр объекта</title>
+</head>
+<body>
+    <h1>{{ object.name }}</h1>
+    {% if object.image %}
+        <img src="{{ object.image.url }}" alt="{{ object.name }}">
+    {% else %}
+        <img src="{% static 'placeholder.jpg' %}" alt="Заглушка">
+    {% endif %}
+    <!-- Другие данные объекта -->
+</body>
+</html>
