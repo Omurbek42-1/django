@@ -1,19 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Product
-from django.template import loader
+from django.shortcuts import render, redirect
+from .forms import PostForm
 
-def text_response_view(request):
-    return HttpResponse("Это текстовый ответ")
-
-def object_response_view(request):
-    products = Product.objects.all()
-    return HttpResponse(products)
-
-def html_template_view(request):
-    products = Product.objects.all()
-    template = loader.get_template('app/product_list.html')
-    context = {
-        'products': products,
-    }
-    return HttpResponse(template.render(context, request))
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')  # Перенаправление на страницу со списком постов или другую подходящую страницу
+    else:
+        form = PostForm()
+    return render(request, 'create_post.html', {'form': form})

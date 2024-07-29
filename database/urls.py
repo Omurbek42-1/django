@@ -1,8 +1,17 @@
 from django.urls import path
-from . import views
+from .views import create_post
 
 urlpatterns = [
-    path('text/', views.text_response_view, name='text-response'),
-    path('objects/', views.object_response_view, name='object-response'),
-    path('html/', views.html_template_view, name='html-response'),
+    path('create/', create_post, name='create_post'),
+    # другие пути
 ]
+
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('your_app_name.urls')),  # Замените 'your_app_name' на имя вашего приложения
+]
+
